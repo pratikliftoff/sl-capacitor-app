@@ -1,0 +1,13 @@
+{
+  "appId": "com.example.app",
+  "appName": "Skin Laundry",
+  "server": {
+    "url": "https://d8c9-117-254-66-168.ngrok-free.app",
+    "cleartext": true
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": true
+    }
+  }
+}
