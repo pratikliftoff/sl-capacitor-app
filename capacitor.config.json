@@ -2,7 +2,7 @@
   "appId": "com.example.app",
   "appName": "Skin Laundry",
   "server": {
-    "url": "https://2e69-2401-4900-61a9-b829-d454-a5-b1ca-f46d.ngrok-free.app",
+    "url": "https://skinlaundry-v2-rlaegc8xv-liftoff.vercel.app",
     "cleartext": true
   },
   "plugins": {
