@@ -8,23 +8,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-    ) -> Bool {
-        FirebaseApp.configure()
-        // Create the Capacitor Bridge View Controller
-        let viewController = CAPBridgeViewController()
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    // Override point for customization after application launch.
+    FirebaseApp.configure()
+    return true
+    }
 
-        // Set the background color (to avoid white gaps around safe areas)
-        viewController.view.backgroundColor = .white
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+            Messaging.messaging().apnsToken = deviceToken
+            Messaging.messaging().token(completion: { (token, error) in
+            if let error = error {
+                NotificationCenter.default.post(name: .capacitorDidFailToRegisterForRemoteNotifications, object: error)
+            } else if let token = token {
+                NotificationCenter.default.post(name: .capacitorDidRegisterForRemoteNotifications, object: token)
+            }
+            })
+        }
 
-        // Set it as the root view controller in a safe-area respecting UIWindow
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = viewController
-        self.window?.makeKeyAndVisible()
-
-        return true
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    NotificationCenter.default.post(name: .capacitorDidFailToRegisterForRemoteNotifications, object: error)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {}
@@ -34,22 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {}
     
   
-
-      // Function to register the token as APNS for IOS only
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Messaging.messaging().apnsToken = deviceToken
-        Messaging.messaging().token(completion: { (token, error) in
-        if let error = error {
-            NotificationCenter.default.post(name: .capacitorDidFailToRegisterForRemoteNotifications, object: error)
-        } else if let token = token {
-            NotificationCenter.default.post(name: .capacitorDidRegisterForRemoteNotifications, object: token)
-        }
-        })
-    }
-       // Function to through the registration error
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        NotificationCenter.default.post(name: .capacitorDidFailToRegisterForRemoteNotifications, object: error)
-    }
 
     func application(
         _ app: UIApplication,

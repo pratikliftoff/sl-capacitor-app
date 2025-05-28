@@ -2,7 +2,7 @@
   "appId": "com.example.app",
   "appName": "Skin Laundry",
   "server": {
-    "url": "https://skinlaundry-v2-rlaegc8xv-liftoff.vercel.app",
+    "url": "https://skinlaundry-v2-app-git-capacitor-push-notification-liftoff.vercel.app/appointment/locations",
     "cleartext": true
   },
   "plugins": {
